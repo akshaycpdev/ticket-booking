@@ -1,0 +1,160 @@
+<title>TicketEase AI — Bengaluru Cricket Experience</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* TicketEase AI — Premium Sports-Tech Design System */
+:root{
+  --bg:#0f1114;
+  --surface:#171a20;
+  --paper:#eef0f3;
+  --fg:#e9ecef;
+  --muted:#8b91a0;
+  --rule:#252a34;
+  --accent:#d93025;
+  --accent-ink:#fff;
+  --gold:#c9a86a;
+  --grid:#1c212a;
+  --safe: max(16px, env(safe-area-inset-left, 0px));
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --bg:#f6f7f9;
+    --surface:#ffffff;
+    --paper:#0f1114;
+    --fg:#0f1114;
+    --muted:#5a6170;
+    --rule:#e3e7ee;
+    --grid:#eef1f6;
+    --accent:#b91c1c;
+  }
+}
+:root[data-theme="dark"]{color-scheme:dark}
+:root[data-theme="light"]{color-scheme:light}
+html{height:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  padding-left:var(--safe);
+  padding-right:var(--safe);
+  padding-block:max(24px, env(safe-area-inset-top, 0px)) max(24px, env(safe-area-inset-bottom, 0px));
+}
+h1,h2,.display{font-family:"Fraunces", Georgia, serif; font-weight:600; letter-spacing:-0.01em}
+.display{font-size:clamp(32px,6vw,56px); line-height:1.05}
+.eyebrow{font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted)}
+.divider{height:1px; background:var(--rule); margin:24px 0}
+.grid{display:grid; gap:24px}
+@media(min-width:1024px){.grid--two{grid-template-columns:1.4fr .9fr}}
+.band{background:var(--surface); border:1px solid var(--rule)}
+.band-inner{padding:28px}
+.chip{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border:1px solid var(--rule); background:transparent; border-radius:999px; font-size:12px; color:var(--muted)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.seatmap{
+  background:linear-gradient(180deg, var(--surface) 0%, var(--bg) 100%);
+  border:1px solid var(--rule);
+  aspect-ratio:16/10;
+  position:relative;
+  overflow:hidden;
+}
+.seatmap::before{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    radial-gradient(1200px 400px at 50% -10%, rgba(201,168,106,.12), transparent 60%),
+    repeating-linear-gradient(0deg, transparent, transparent 22px, var(--grid) 22px, var(--grid) 23px);
+  opacity:.6;
+}
+.seats{display:grid; grid-template-columns:repeat(24,1fr); gap:4px; position:absolute; inset:60px 40px; place-items:center}
+.seat{
+  width:100%;
+  aspect-ratio:1;
+  background:var(--paper);
+  opacity:.15;
+  border-radius:2px;
+  position:relative;
+}
+.seat.available{opacity:.9; background:var(--fg)}
+.seat.selected{background:var(--accent); opacity:1}
+.seat.held{background:var(--gold); opacity:1}
+.field{position:absolute; left:50%; bottom:18%; transform:translateX(-50%); width:40%; height:8px; background:var(--rule); border-radius:2px}
+.legend{display:flex; gap:16px; font-size:12px; color:var(--muted)}
+.checkout{
+  position:sticky; top:calc(env(safe-area-inset-top, 0px) + 24px);
+  background:var(--surface);
+  border:1px solid var(--rule);
+}
+.price{font-variant-numeric:tabular-nums}
+.total{font-family:"Fraunces", serif; font-size:28px}
+button.primary{
+  width:100%; padding:14px 18px; font-weight:600; letter-spacing:.02em;
+  background:var(--accent); color:var(--accent-ink); border:none; cursor:pointer;
+}
+button.primary:hover{filter:brightness(.95)}
+.muted{color:var(--muted)}
+.caption{font-size:12px}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<div class="grid grid--two">
+  <section>
+    <p class="eyebrow">M. Chinnaswamy Stadium • Bengaluru</p>
+    <h1 class="display">RCB vs CSK<br>Saturday, 19:30 IST</h1>
+    <p class="muted" style="margin-top:12px; max-width:60ch">Four tickets from Mysuru. AI-curated itinerary with KSRTC Airavat, Indiranagar homestay, and post-match dining. All availability is demonstration data.</p>
+    <div class="divider"></div>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
+      <div class="band">
+        <div class="band-inner">
+          <div class="chip"><span class="dot"></span>Trip</div>
+          <h2 style="margin:12px 0 6px; font-size:18px">Mysuru → Bengaluru</h2>
+          <p class="muted caption">KSRTC Airavat 06:15 • Shatabdi 11:00 • 2h 45m</p>
+        </div>
+      </div>
+      <div class="band">
+        <div class="band-inner">
+          <div class="chip"><span class="dot"></span>Stay</div>
+          <h2 style="margin:12px 0 6px; font-size:18px">Indiranagar Homestay</h2>
+          <p class="muted caption">₹3,200 / night • 4.5 ★</p>
+        </div>
+      </div>
+      <div class="band">
+        <div class="band-inner">
+          <div class="chip"><span class="dot"></span>Dine</div>
+          <h2 style="margin:12px 0 6px; font-size:18px">Vidyarthi Bhavan, MTR</h2>
+          <p class="muted caption">South Indian • Walkable</p>
+        </div>
+      </div>
+    </div>
+    <h3 style="margin-top:32px; font-family:Inter; font-weight:500; letter-spacing:.02em">Seat selection — East Stand</h3>
+    <div class="seatmap">
+      <div class="field"></div>
+      <div class="seats">
+        <!-- simplified seat grid -->
+        <div class="seat available"></div><div class="seat available"></div><div class="seat held"></div><div class="seat available"></div>
+        <div class="seat available"></div><div class="seat selected"></div><div class="seat selected"></div><div class="seat available"></div>
+        <!-- repeated for visual -->
+      </div>
+    </div>
+    <div class="legend" style="margin-top:12px">
+      <span>Available</span><span>•</span><span>Held</span><span>•</span><span>Selected</span>
+    </div>
+  </section>
+  <aside class="checkout">
+    <div class="band-inner">
+      <h2 style="font-family:Inter; font-weight:600; margin:0 0 16px">Purchase summary</h2>
+      <div style="display:grid; gap:10px; font-size:14px">
+        <div style="display:flex; justify-content:space-between"><span class="muted">Tickets</span><span class="price">4 × ₹2,500</span></div>
+        <div style="display:flex; justify-content:space-between"><span class="muted">Convenience</span><span class="price">₹180</span></div>
+        <div style="display:flex; justify-content:space-between"><span class="muted">GST</span><span class="price">₹1,120</span></div>
+        <div class="divider"></div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline">
+          <span class="muted">Total</span><span class="total">₹11,320</span>
+        </div>
+      </div>
+      <button class="primary" style="margin-top:20px">Confirm booking</button>
+      <p class="caption muted" style="margin-top:12px">Seats are held for 10 minutes. Payment verified via Razorpay. No real-time inventory confirmed.</p>
+    </div>
+  </aside>
+</div>

@@ -1,0 +1,382 @@
+<title>Stadium Reserve</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&family=Fragment+Mono:ital@0;1&display=swap">
+<style>
+:root{
+  --bg:#0B0B0C;
+  --surface:#121214;
+  --surface-2:#1A1A1E;
+  --line:#24242B;
+  --text:#E8E6E1;
+  --muted:#8A8680;
+  --accent:#C9A86E;
+  --accent-2:#E5D5B8;
+  --success:#7AA374;
+  --warning:#C98A4A;
+  --danger:#B85A5A;
+  --shadow:0 1px 0 rgba(255,255,255,.02), 0 8px 24px rgba(0,0,0,.6);
+  --radius:10px;
+  --max:1280px;
+  --grid:24px;
+  --font-display:'Cormorant Garamond', Georgia, serif;
+  --font-body:'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --font-mono:'Fragment Mono', ui-monospace, monospace;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --bg:#FAF9F7;
+    --surface:#FFFFFF;
+    --surface-2:#F3F1EC;
+    --line:#E6E2D7;
+    --text:#1A1815;
+    --muted:#6B665E;
+    --accent:#8B6E3E;
+    --accent-2:#3A2F22;
+    --shadow:0 1px 0 rgba(0,0,0,.04), 0 12px 30px rgba(0,0,0,.08);
+  }
+}
+:root[data-theme="light"]{
+  --bg:#FAF9F7;
+  --surface:#FFFFFF;
+  --surface-2:#F3F1EC;
+  --line:#E6E2D7;
+  --text:#1A1815;
+  --muted:#6B665E;
+  --accent:#8B6E3E;
+  --accent-2:#3A2F22;
+  --shadow:0 1px 0 rgba(0,0,0,.04), 0 12px 30px rgba(0,0,0,.08);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ color-scheme: dark } }
+:root[data-theme="dark"]{ color-scheme: dark }
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-body);
+  font-weight:400;
+  letter-spacing:.01em;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  padding-left:max(16px, env(safe-area-inset-left,0px));
+  padding-right:max(16px, env(safe-area-inset-right,0px));
+  padding-block:max(16px, env(safe-area-inset-top,0px));
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+h1,h2,h3{font-family:var(--font-display);font-weight:600;letter-spacing:.01em;line-height:1.1}
+h1{font-size:clamp(36px,5vw,64px);margin:0}
+h2{font-size:clamp(24px,3vw,32px);margin:0 0 8px}
+h3{font-size:20px;margin:0}
+p{margin:0 0 12px;color:var(--muted);font-size:15px;line-height:1.6}
+a{color:var(--text);text-decoration:none}
+hr{border:0;border-top:1px solid var(--line);margin:20px 0}
+.mono{font-family:var(--font-mono);font-size:13px;letter-spacing:.02em}
+.label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--text);color:var(--bg);
+  padding:12px 18px;font-weight:600;font-size:14px;
+  border:0;cursor:pointer;
+}
+.btn--ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+.btn--accent{background:var(--accent);color:#1a150f}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.container{max-width:var(--max);margin:0 auto}
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 0;border-bottom:1px solid var(--line);
+  font-size:13px;
+}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-mark{
+  width:28px;height:28px;border:1.5px solid var(--text);display:grid;place-items:center;
+  font-family:var(--font-display);font-size:16px;
+}
+.brand-name{font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.nav{display:flex;gap:22px;color:var(--muted)}
+.hero{
+  display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:start;
+  padding:56px 0 32px;
+}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:16px;color:var(--muted);font-size:13px}
+.eyebrow::before{content:"";width:24px;height:1px;background:var(--line)}
+.meta{display:flex;gap:18px;margin:12px 0 24px;color:var(--muted);font-size:14px}
+.meta span{display:flex;align-items:center;gap:6px}
+.media{
+  position:relative;aspect-ratio:16/10;background:var(--surface-2);
+  border:1px solid var(--line);overflow:hidden;
+}
+.media img{width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.05) saturate(.95)}
+.media .badge{
+  position:absolute;left:16px;bottom:16px;background:rgba(0,0,0,.7);color:#fff;
+  padding:8px 12px;font-size:12px;border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:none;
+}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.card{
+  background:var(--surface);border:1px solid var(--line);
+  padding:24px;
+}
+.card h3{margin-bottom:12px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+.stat{border-top:1px solid var(--line);padding-top:12px}
+.stat .k{font-family:var(--font-mono);font-size:22px}
+.stat .v{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+.seating{
+  display:grid;grid-template-columns:1fr 380px;gap:32px;
+  padding:48px 0;
+}
+.stand{
+  background:var(--surface);border:1px solid var(--line);padding:28px;
+}
+.stand-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.section-label{font-family:var(--font-display);font-size:28px}
+.controls{display:flex;gap:8px;flex-wrap:wrap}
+.chip{
+  padding:6px 10px;border:1px solid var(--line);font-size:12px;background:transparent;
+  cursor:pointer;
+}
+.chip.active{background:var(--accent);color:#1a150f;border-color:var(--accent)}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em}
+.select{
+  width:100%;background:var(--surface-2);color:var(--text);border:1px solid var(--line);
+  padding:10px 12px;font:inherit;
+}
+.map-wrap{
+  margin-top:24px;position:relative;
+}
+.seat-grid{
+  display:grid;grid-template-columns:repeat(24,1fr);gap:3px;
+  justify-content:center;
+}
+.seat{
+  aspect-ratio:1/1;width:100%;background:var(--surface-2);
+  border:1px solid var(--line);cursor:pointer;position:relative;
+}
+.seat.selected{background:var(--accent);border-color:var(--accent)}
+.seat.taken{background:#2a2220;border-color:#3a302b;cursor:not-allowed}
+.seat:hover:not(.taken){border-color:var(--muted)}
+.row-label{
+  position:absolute;left:-34px;top:50%;transform:translateY(-50%);
+  font-family:var(--font-mono);font-size:10px;color:var(--muted)
+}
+.aisle{background:transparent;border:none;cursor:default}
+.legend{display:flex;gap:14px;margin-top:12px;font-size:12px;color:var(--muted)}
+.dot{width:10px;height:10px;border:1px solid var(--line);display:inline-block;margin-right:6px}
+.dot.selected{background:var(--accent);border-color:var(--accent)}
+.dot.taken{background:#3a302b;border-color:#4a403a}
+.pov{
+  margin-top:28px;border-top:1px solid var(--line);padding-top:20px;
+}
+.pov-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.pov-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pov-thumb{
+  aspect-ratio:16/9;background:var(--surface-2);border:1px solid var(--line);
+  cursor:pointer;overflow:hidden;
+}
+.pov-thumb img{width:100%;height:100%;object-fit:cover}
+.pov-thumb.active{outline:2px solid var(--accent)}
+.sidebar{
+  position:sticky;top:calc(16px + env(safe-area-inset-top,0px));
+  background:var(--surface);border:1px solid var(--line);padding:24px;height:fit-content;
+}
+.price-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.price-row.total{font-weight:600;font-size:16px;border-bottom:0;margin-top:8px}
+.checkout{
+  display:flex;flex-direction:column;gap:12px;margin-top:16px
+}
+.checkout .btn{justify-content:center}
+.note{font-size:12px;color:var(--muted);line-height:1.5}
+.footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:13px}
+@media (max-width:1024px){
+  .hero{grid-template-columns:1fr}
+  .seating{grid-template-columns:1fr}
+  .grid-2{grid-template-columns:1fr}
+  .sidebar{position:static}
+}
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<body>
+<div class="container">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">S</div>
+      <div class="brand-name">Stadium Reserve</div>
+    </div>
+    <nav class="nav">
+      <a href="#">Events</a>
+      <a href="#">My Tickets</a>
+      <a href="#">Account</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="eyebrow">North Stand • Lower Tier</div>
+      <h1>Champions League<br>Quarter-Final</h1>
+      <div class="meta">
+        <span>⚑ Allianz Arena • Munich</span>
+        <span>⌚ 19 Apr 2026 • 20:45 CEST</span>
+        <span>🏆 Bayern vs Inter</span>
+      </div>
+      <p>Premium lower-bowl seats with unobstructed sightlines to the pitch. Includes complimentary programme and fast-track entry.</p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Section Information</h3>
+          <p>Block 124 • Rows 12–18 • Category A. Central position with full field view. Covered by stadium roof.</p>
+          <div class="stats">
+            <div class="stat"><div class="k">€189</div><div class="v">From per seat</div></div>
+            <div class="stat"><div class="k">12</div><div class="v">Rows available</div></div>
+            <div class="stat"><div class="k">94%</div><div class="v">View rating</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Match Day Details</h3>
+          <p>Gates open 18:45. Security screening at West entrance. No re-entry. Digital tickets delivered instantly.</p>
+          <div style="display:flex;gap:8px;margin-top:12px">
+            <button class="btn btn--ghost">Venue Map</button>
+            <button class="btn">Add to Calendar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="media">
+        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=1600&auto=format&fit=crop" alt="Stadium">
+        <div class="badge">Block 124 • Row 14</div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:12px">
+        <button class="btn btn--ghost" style="flex:1">View 360°</button>
+        <button class="btn btn--ghost" style="flex:1">Accessibility Info</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="seating">
+    <div class="stand">
+      <div class="stand-head">
+        <div class="section-label">Seating Plan</div>
+        <div class="controls">
+          <button class="chip active" data-view="plan">Plan</button>
+          <button class="chip" data-view="aisle">Aisle</button>
+          <button class="chip" data-view="view">View</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Section</label>
+        <select class="select" id="section">
+          <option>North Stand • Block 124</option>
+          <option>North Stand • Block 123</option>
+          <option>South Stand • Block 215</option>
+        </select>
+      </div>
+
+      <div class="map-wrap">
+        <div class="seat-grid" id="seatGrid"></div>
+        <div class="legend">
+          <span><i class="dot"></i>Available</span>
+          <span><i class="dot selected"></i>Selected</span>
+          <span><i class="dot taken"></i>Unavailable</span>
+        </div>
+      </div>
+
+      <div class="pov">
+        <div class="pov-head">
+          <h3 class="label">Spectator POV</h3>
+          <span class="mono">Row 14 • Seat 12</span>
+        </div>
+        <div class="pov-grid" id="povGrid"></div>
+      </div>
+    </div>
+
+    <aside class="sidebar">
+      <h2>Your Selection</h2>
+      <p style="color:var(--muted);font-size:14px;margin:8px 0 16px">2 seats • Block 124 • Row 14</p>
+      <div id="priceBreakdown">
+        <div class="price-row"><span>Seats</span><span class="mono">2 × €189</span></div>
+        <div class="price-row"><span>Service fee</span><span class="mono">€9.80</span></div>
+        <div class="price-row"><span>VAT</span><span class="mono">€38.20</span></div>
+        <div class="price-row total"><span>Total</span><span class="mono">€426.00</span></div>
+      </div>
+      <div class="checkout">
+        <button class="btn btn--accent">Continue to Checkout</button>
+        <button class="btn btn--ghost">Save for later</button>
+      </div>
+      <div class="note">Tickets are non-refundable. Transfer allowed up to 24h before kick-off. Mobile entry required.</div>
+    </aside>
+  </section>
+
+  <footer class="footer">
+    Stadium Reserve is an authorised ticketing partner. Seats verified against official allocation. No secondary market fees.
+  </footer>
+</div>
+
+<script>
+const grid = document.getElementById('seatGrid');
+const rows = 14;
+const cols = 24;
+const takenSet = new Set(['3-8','3-9','7-12','7-13','10-5','10-6','12-18','12-19','13-2','13-3']);
+const selected = new Set();
+
+for(let r=1;r<=rows;r++){
+  const rowLabel = document.createElement('div');
+  rowLabel.className='row-label';
+  rowLabel.textContent='R'+r;
+  const wrap = document.createElement('div');
+  wrap.style.position='relative';
+  wrap.appendChild(rowLabel);
+  for(let c=1;c<=cols;c++){
+    const seat = document.createElement('button');
+    seat.className='seat';
+    seat.dataset.r=r; seat.dataset.c=c;
+    if(c===8||c===16) seat.className='aisle';
+    const key = `${r}-${c}`;
+    if(takenSet.has(key)) seat.classList.add('taken');
+    seat.addEventListener('click',()=>{
+      if(seat.classList.contains('taken')||seat.classList.contains('aisle')) return;
+      seat.classList.toggle('selected');
+      if(seat.classList.contains('selected')) selected.add(key);
+      else selected.delete(key);
+      updateSummary();
+    });
+    grid.appendChild(seat);
+  }
+}
+function updateSummary(){
+  const count = selected.size;
+  document.querySelector('.sidebar p').textContent = `${count} seats • Block 124 • Row 14`;
+  const subtotal = count*189;
+  document.querySelector('#priceBreakdown .price-row:nth-child(1) span:last-child').textContent = `${count} × €189`;
+  document.querySelector('#priceBreakdown .price-row.total span:last-child').textContent = `€${(subtotal + 9.8 + 38.2).toFixed(2)}`;
+}
+const povGrid = document.getElementById('povGrid');
+const povImgs = [
+  'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=800&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?q=80&w=800&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1579952363873-27d3bfad9c0d?q=80&w=800&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=800&auto=format&fit=crop'
+];
+povImgs.forEach((src,i)=>{
+  const el = document.createElement('div');
+  el.className='pov-thumb'+(i===0?' active':'');
+  el.innerHTML = `<img src="${src}" alt="POV ${i+1}">`;
+  el.addEventListener('click',()=>{
+    document.querySelectorAll('.pov-thumb').forEach(t=>t.classList.remove('active'));
+    el.classList.add('active');
+  });
+  povGrid.appendChild(el);
+});
+document.querySelectorAll('.chip').forEach(ch=>{
+  ch.addEventListener('click',()=>{
+    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+    ch.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
